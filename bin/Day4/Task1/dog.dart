@@ -1,5 +1,5 @@
 import 'pet.dart';
-import 'walk.dart';
+import 'abilities.dart';
 
 class Dog extends Pet with Walk {
   Dog({required super.name});
