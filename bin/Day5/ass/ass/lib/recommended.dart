@@ -10,6 +10,7 @@ class Recommended extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 30),
+      padding: EdgeInsets.only(bottom: 10),
       height: 246, // TODO: Make it dynamic
       width: double.infinity,
       color: Color(0xff282A28),
@@ -30,6 +31,7 @@ class Recommended extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Container(
                   margin: const EdgeInsets.only(left: 18),
+                  padding: EdgeInsets.only(bottom: 10),
                   height: 184, // TODO: Make it dynamic
                   color: Color(0xff343534),
                   child: Column(
