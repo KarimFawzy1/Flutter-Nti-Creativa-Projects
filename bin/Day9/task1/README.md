@@ -59,10 +59,6 @@ lib/
 
 - [flutter_bloc](https://pub.dev/packages/flutter_bloc)
 
-## Screenshots
+### License
 
-<!-- Include screenshots here if available -->
-
-## License
-
-[MIT](LICENSE)
+This project is distributed for learning purposes.
