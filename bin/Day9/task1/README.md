@@ -1,16 +1,68 @@
-# task1
+# Task 1: TODO App
 
-A new Flutter project.
+A simple Flutter TODO app using BLoC pattern.
+
+## Features
+
+- Add TODO items
+- Toggle (mark as done/undone) TODO items
+- State management using `flutter_bloc`
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter >= 3.0
+- Dart >= 2.16
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repository:
+   ```
+   git clone <repo-url>
+   ```
+2. Install dependencies:
+   ```
+   flutter pub get
+   ```
+
+### Running the App
+
+Run the app on an emulator or connected device:
+
+```
+flutter run
+```
+
+## Project Structure
+
+```
+lib/
+├── features/
+│   └── todo/
+│       ├── cubit/
+│       │   ├── logic.dart      # Contains the BLoC logic (TodoCubit)
+│       │   └── state.dart      # States for TodoCubit
+│       ├── models/
+│       │   └── todo_model.dart # Model for a TODO item
+│       └── home_page.dart      # Main UI for TODOs
+└── main.dart                   # Entry point of the application
+```
+
+## How It Works
+
+- The main entry (`main.dart`) sets up the BLoC provider and HomePage.
+- Users can add new TODO items and toggle their completed state.
+- State updates are managed via Cubit (`logic.dart`).
+
+## Dependencies
+
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc)
+
+## Screenshots
+
+<!-- Include screenshots here if available -->
+
+## License
+
+[MIT](LICENSE)
