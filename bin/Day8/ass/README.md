@@ -66,7 +66,3 @@ lib/
 ### License
 
 This project is distributed for learning purposes.
-
-### Contact
-
-For any queries or issues, please open an issue or contact the maintainer.
