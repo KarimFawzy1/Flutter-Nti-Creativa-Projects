@@ -1,4 +1,4 @@
-# Task 1: TODO App
+# TODO App
 
 A simple Flutter TODO app using BLoC pattern.
 
