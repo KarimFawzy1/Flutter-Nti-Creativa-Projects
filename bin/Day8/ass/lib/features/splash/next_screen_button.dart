@@ -1,23 +1,25 @@
 import 'package:ass/core/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:ass/cubit/logic.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:ass/cubit/state.dart';
 
-class NextScreen extends StatelessWidget {
-  const NextScreen({super.key, required this.selectedGender});
-
-  final String? selectedGender;
+class NextScreenButton extends StatelessWidget {
+  const NextScreenButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final BmiCubit bmiCubit = context.read<BmiCubit>();
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 25),
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          if (selectedGender != null) {
+          if (bmiCubit.genderName.isNotEmpty) {
             Navigator.pushReplacementNamed(
               context,
               '/home',
-              arguments: {'gender': selectedGender},
+              arguments: {'gender': bmiCubit.genderName},
             );
           }
         },

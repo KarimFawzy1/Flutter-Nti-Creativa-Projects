@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'features/splash/splash_screen.dart';
 import 'features/home/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ass/cubits/gender_selection/gender_selection_cubit.dart';
+import 'package:ass/cubit/logic.dart';
 
 void main() {
   runApp(
@@ -11,10 +11,11 @@ void main() {
       initialRoute: '/',
       routes: {
         '/': (context) => BlocProvider(
-          create: (context) => GenderSelectionCubit(),
+          create: (context) => BmiCubit(),
           child: SplashScreen(),
         ),
-        '/home': (context) => HomeScreen(),
+        '/home': (context) =>
+            BlocProvider(create: (context) => BmiCubit(), child: HomeScreen()),
       },
     ),
   );
