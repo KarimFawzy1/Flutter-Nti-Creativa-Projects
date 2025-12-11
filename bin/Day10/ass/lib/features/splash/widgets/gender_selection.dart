@@ -3,7 +3,6 @@ import 'package:ass/cubit/logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ass/core/width_height.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GenderSelection extends StatelessWidget {
   final String genderName;
