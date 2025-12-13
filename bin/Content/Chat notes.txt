@@ -1,0 +1,2 @@
+wrap vs row + widget life cycle:
+https://chatgpt.com/share/693b547a-100c-800d-bfc5-505e6d262fd2

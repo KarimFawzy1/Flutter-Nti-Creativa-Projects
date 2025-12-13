@@ -21,6 +21,8 @@ class GenderSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidthHeight.init(context);
+    print(WidthHeight.screenWidth);
+    print(WidthHeight.screenHeight);
     final BmiCubit bmiCubit = context.read<BmiCubit>();
     final bool isSelected = bmiCubit.genderName == genderName;
     return GestureDetector(
@@ -109,7 +111,9 @@ class GenderSelection extends StatelessWidget {
                   child: Icon(
                     icon,
                     color: Colors.white,
-                    size: WidthHeight.screenWidth * 0.135,
+                    size:
+                        (WidthHeight.screenHeight / WidthHeight.screenWidth) *
+                        18,
                   ),
                 ),
               ],
