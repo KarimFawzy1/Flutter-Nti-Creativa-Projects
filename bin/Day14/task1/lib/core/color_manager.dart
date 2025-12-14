@@ -1,0 +1,15 @@
+import 'package:flutter/material.dart';
+
+class ColorManager {
+  static const Color primary = Color(0xFF004CFF);
+  static const Color secondary = Color(0xFFD97474);
+  static const Color background = Color(0xFFF4F4F4);
+  static const Color text = Color(0xFF000000);
+  static const Color textSecondary = Color(0xFF000000);
+  static const Color textTertiary = Color(0xFF000000);
+  static const Color textQuaternary = Color(0xFF000000);
+  static const Color textQuinary = Color(0xFF000000);
+  static const Color textSenary = Color(0xFF000000);
+  static const Color textSeptenary = Color(0xFF000000);
+  static const Color textOctonary = Color(0xFF000000);
+}
