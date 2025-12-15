@@ -1,17 +1,18 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:task1/features/home/models/person_model.dart';
 
 class LocalDatabase {
-  Box myBox = Hive.box('box1');
+  Box myBox = Hive.box('person1');
 
-  Future<void> addData(String name) async {
-    await myBox.put("name", name);
+  Future<void> addPerson(PersonModel person) async {
+    await myBox.put("person1", person);
   }
 
-  Future<dynamic> getData() async {
-    return await myBox.get("name");
+  Future<PersonModel> getPerson() async {
+    return await myBox.get("person1");
   }
 
-  Future<void> deleteData() async {
-    await myBox.delete("name");
+  Future<void> deletePerson() async {
+    await myBox.delete("person1");
   }
 }

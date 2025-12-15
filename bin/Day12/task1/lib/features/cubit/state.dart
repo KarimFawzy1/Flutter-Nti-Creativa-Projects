@@ -1,15 +1,17 @@
-sealed class NameState {}
+import 'package:task1/features/home/models/person_model.dart';
 
-class InitialState extends NameState {}
+sealed class PersonState {}
 
-class LoadingState extends NameState {}
+class InitialState extends PersonState {}
 
-class SuccessState extends NameState {
-  final String name;
-  SuccessState({required this.name});
+class LoadingState extends PersonState {}
+
+class SuccessState extends PersonState {
+  final PersonModel person;
+  SuccessState({required this.person});
 }
 
-class ErrorState extends NameState {
+class ErrorState extends PersonState {
   final String errorMessage;
   ErrorState({required this.errorMessage});
 }

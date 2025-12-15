@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'features/home/home_screen.dart';
-// import 'features/splash/splash_screen.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'features/cubit/logic.dart';
+import 'features/notes/inside_note_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'features/cubit/logic.dart';
 import 'core/color_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,21 +24,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: ColorManager.background,
-        appBarTheme: AppBarTheme(backgroundColor: ColorManager.background),
+    return BlocProvider(
+      create: (context) => NoteCubit(),
+      child: MaterialApp(
+        theme: ThemeData(
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: ColorManager.secondary2,
+            selectionColor: ColorManager.backgroundSecondary,
+          ),
+          scaffoldBackgroundColor: ColorManager.background,
+          appBarTheme: AppBarTheme(backgroundColor: ColorManager.background),
+        ),
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/home',
+        routes: {
+          '/home': (context) => const HomeScreen(),
+          '/note': (context) => const NoteScreen(),
+        },
       ),
-      debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
-      // initialRoute: '/home',
-      // routes: {
-      //   '/': (context) => BlocProvider(
-      //     create: (context) => NameCubit(),
-      //     child: const SplashScreen(),
-      //   ),
-      //   '/home': (context) => const HomeScreen(),
-      // },
     );
   }
 }

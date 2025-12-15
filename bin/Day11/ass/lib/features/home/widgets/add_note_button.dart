@@ -22,7 +22,9 @@ class AddNoteButton extends StatelessWidget {
           ],
         ),
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/note');
+          },
           backgroundColor: ColorManager.background,
           foregroundColor: ColorManager.whiteText,
           shape: RoundedRectangleBorder(

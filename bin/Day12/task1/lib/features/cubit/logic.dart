@@ -1,37 +1,38 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task1/features/cubit/state.dart';
 import 'package:task1/core/local_database.dart';
+import 'package:task1/features/home/models/person_model.dart';
 
-class NameCubit extends Cubit<NameState> {
-  NameCubit() : super(InitialState());
+class PersonCubit extends Cubit<PersonState> {
+  PersonCubit() : super(InitialState());
 
   final LocalDatabase localDatabase = LocalDatabase();
 
-  Future<void> addName(String name) async {
+  Future<void> addPerson(PersonModel person) async {
     emit(LoadingState());
     try {
-      await localDatabase.addData(name);
-      emit(SuccessState(name: name));
+      await localDatabase.addPerson(person);
+      emit(SuccessState(person: person));
     } catch (e) {
       emit(ErrorState(errorMessage: e.toString()));
     }
   }
 
-  Future<void> deleteName() async {
+  Future<void> deletePerson() async {
     emit(LoadingState());
     try {
-      await localDatabase.deleteData();
-      emit(SuccessState(name: ''));
+      await localDatabase.deletePerson();
+      emit(SuccessState(person: PersonModel(name: '', age: 0)));
     } catch (e) {
       emit(ErrorState(errorMessage: e.toString()));
     }
   }
 
-  Future<void> getName() async {
+  Future<void> getPerson() async {
     emit(LoadingState());
     try {
-      final name = await localDatabase.getData();
-      emit(SuccessState(name: name.toString()));
+      final person = await localDatabase.getPerson();
+      emit(SuccessState(person: person));
     } catch (e) {
       emit(ErrorState(errorMessage: e.toString()));
     }

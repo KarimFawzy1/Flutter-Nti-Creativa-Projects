@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:task1/core/color_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:task1/core/color_manager.dart';
+import 'package:task1/core/note_model.dart';
+import 'package:task1/features/cubit/logic.dart';
+import 'package:task1/features/cubit/state.dart';
 import 'package:task1/features/home/widgets/add_note_button.dart';
 import 'package:task1/features/home/widgets/notes_container.dart';
 import 'package:task1/features/home/widgets/small_button.dart';
+import 'package:task1/features/notes/inside_note_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,46 +37,55 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 28.0),
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.only(bottom: 50.h),
-          children: [
-            NotesContainer(
-              noteLabel:
-                  "Book Review : The Design of Everyday Things by Don Norman",
-              noteColor: ColorManager.secondary1,
-            ),
-            NotesContainer(
-              noteLabel:
-                  "Book Review : The Design of Everyday Things by Don Norman",
-              noteColor: ColorManager.secondary2,
-            ),
-            NotesContainer(
-              noteLabel:
-                  "Book Review : The Design of Everyday Things by Don Norman",
-              noteColor: ColorManager.secondary3,
-            ),
-            NotesContainer(
-              noteLabel:
-                  "Book Review : The Design of Everyday Things by Don Norman",
-              noteColor: ColorManager.secondary4,
-            ),
-            NotesContainer(
-              noteLabel:
-                  "Book Review : The Design of Everyday Things by Don Norman",
-              noteColor: ColorManager.secondary5,
-            ),
-            NotesContainer(
-              noteLabel:
-                  "Book Review : The Design of Everyday Things by Don Norman",
-              noteColor: ColorManager.secondary6,
-            ),
-            NotesContainer(
-              noteLabel:
-                  "Book Review : The Design of Everyday Things by Don Norman",
-              noteColor: ColorManager.secondary7,
-            ),
-          ],
+        child: BlocBuilder<NoteCubit, NoteState>(
+          builder: (context, state) {
+            if (state is NotesLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is NotesError) {
+              return Center(
+                child: Text(
+                  state.message,
+                  style: TextStyle(color: Colors.red, fontSize: 18.sp),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
+            final List<NoteModel> notes = state.notes;
+            if (notes.isEmpty) {
+              return Center(
+                child: Text(
+                  'No notes yet.\nTap the + button to add one.',
+                  style: TextStyle(
+                    color: ColorManager.whiteText,
+                    fontSize: 18.sp,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.only(bottom: 50.h),
+              itemCount: notes.length,
+              itemBuilder: (context, index) {
+                final note = notes[index];
+                return NotesContainer(
+                  noteLabel: note.title,
+                  noteColor: note.color,
+                  onDelete: () {
+                    context.read<NoteCubit>().deleteNote(note.id);
+                  },
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => NoteScreen(note: note)),
+                    );
+                  },
+                );
+              },
+            );
+          },
         ),
       ),
     );
