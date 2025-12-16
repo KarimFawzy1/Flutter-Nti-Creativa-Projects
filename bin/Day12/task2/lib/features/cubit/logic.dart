@@ -43,7 +43,7 @@ class PersonCubit extends Cubit<PersonState> {
     }
   }
 
-  Future<void> validateForm(
+  Future<bool> validateForm(
     GlobalKey<FormState> formKey,
     TextEditingController emailController,
     TextEditingController passwordController,
@@ -57,15 +57,15 @@ class PersonCubit extends Cubit<PersonState> {
       emit(
         ErrorState(errorMessage: 'Invalid email. Must contain "@" and ".com".'),
       );
-      return;
+      return false;
     }
     if (password.length < 6) {
       emit(ErrorState(errorMessage: 'Password must be at least 6 characters.'));
-      return;
+      return false;
     }
     if (name.isEmpty) {
       emit(ErrorState(errorMessage: 'Name cannot be empty.'));
-      return;
+      return false;
     }
 
     if (formKey.currentState!.validate()) {
@@ -74,9 +74,12 @@ class PersonCubit extends Cubit<PersonState> {
         await addPerson(
           PersonModel1(email: email, password: password, name: name),
         );
+        return true;
       } catch (e) {
         emit(ErrorState(errorMessage: e.toString()));
+        return false;
       }
     }
+    return false;
   }
 }

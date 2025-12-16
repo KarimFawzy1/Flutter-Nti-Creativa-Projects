@@ -24,17 +24,19 @@ class LogInButton extends StatelessWidget {
       width: 335,
       height: 61,
       child: ElevatedButton(
-        onPressed: () {
-          personCubit.validateForm(
+        onPressed: () async {
+          final isValid = await personCubit.validateForm(
             formKey,
             emailController,
             passwordController,
             nameController,
           );
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ChatScreen()),
-          );
+          if (isValid) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ChatScreen()),
+            );
+          }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF004CFF),

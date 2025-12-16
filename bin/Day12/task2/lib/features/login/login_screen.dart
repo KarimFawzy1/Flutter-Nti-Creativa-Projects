@@ -50,9 +50,9 @@ class LoginScreen extends StatelessWidget {
                       label: 'Email',
                     ),
                     CustomTextField(
-                      controller: passwordController,
-                      label: 'Password',
-                    ),
+                        controller: passwordController,
+                        label: 'Password',
+                        isPassword: true),
                     CustomTextField(controller: nameController, label: 'Name'),
                     const SizedBox(height: 16),
                     if (state is LoadingState)
