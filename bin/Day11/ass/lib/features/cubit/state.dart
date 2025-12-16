@@ -9,12 +9,10 @@ class NoteInitial extends NoteState {
   const NoteInitial() : super();
 }
 
-/// when you are loading notes (e.g. from local DB)
 class NotesLoading extends NoteState {
   const NotesLoading({super.notes});
 }
 
-/// when notes are successfully loaded / updated
 class NotesLoaded extends NoteState {
   const NotesLoaded({super.notes});
 }
