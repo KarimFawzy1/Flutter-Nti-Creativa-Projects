@@ -8,6 +8,7 @@ class NoteCubit extends Cubit<NoteState> {
 
   LocalDatabase localDatabase = LocalDatabase();
 
+  // load notes from local database when the app is opened
   Future<void> loadNotes() async {
     try {
       emit(const NotesLoading());
