@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task1/core/color_manager.dart';
-import 'package:task1/core/note_model.dart';
+import 'package:task1/core/models/note_model.dart';
 import 'package:task1/features/cubit/logic.dart';
 import 'package:task1/features/cubit/state.dart';
 import 'package:task1/features/home/widgets/add_note_button.dart';

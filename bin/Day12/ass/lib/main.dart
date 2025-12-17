@@ -5,8 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/cubit/logic.dart';
 import 'core/color_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:task1/core/models/note_model.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(NoteModelAdapter());
+  await Hive.openBox('notes');
+
   runApp(
     ScreenUtilInit(
       designSize: const Size(414, 1100),
@@ -25,7 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NoteCubit(),
+      create: (context) => NoteCubit()..loadNotes(),
       child: MaterialApp(
         theme: ThemeData(
           textSelectionTheme: TextSelectionThemeData(

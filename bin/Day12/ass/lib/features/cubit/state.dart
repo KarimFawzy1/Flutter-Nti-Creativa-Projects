@@ -1,4 +1,4 @@
-import 'package:task1/core/note_model.dart';
+import 'package:task1/core/models/note_model.dart';
 
 sealed class NoteState {
   final List<NoteModel> notes;

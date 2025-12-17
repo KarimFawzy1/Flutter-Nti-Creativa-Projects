@@ -1,46 +1,56 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task1/features/cubit/state.dart';
-import 'package:task1/core/note_model.dart';
-// import 'package:task1/core/local_database.dart';
+import 'package:task1/core/models/note_model.dart';
+import 'package:task1/core/local_database.dart';
 
 class NoteCubit extends Cubit<NoteState> {
   NoteCubit() : super(const NoteInitial());
 
-  void addNote(NoteModel note) {
+  LocalDatabase localDatabase = LocalDatabase();
+
+  Future<void> loadNotes() async {
     try {
-      // copy current list and add the new note
-      final updatedNotes = List<NoteModel>.from(state.notes)..add(note);
-      emit(NotesLoaded(notes: updatedNotes));
+      emit(const NotesLoading());
+      final notes = await localDatabase.getNotes();
+      emit(NotesLoaded(notes: notes));
     } catch (e) {
-      emit(NotesError(notes: state.notes, message: 'Failed to add note: $e'));
+      emit(NotesError(message: 'Failed to load notes: $e'));
     }
   }
 
-  void deleteNote(int id) {
+  Future<void> addNote(NoteModel note) async {
     try {
-      final updatedNotes = state.notes.where((note) => note.id != id).toList();
-      emit(NotesLoaded(notes: updatedNotes));
+      await localDatabase.addNote(note);
+      final notes = await localDatabase.getNotes();
+      emit(NotesLoaded(notes: notes));
     } catch (e) {
-      emit(
-        NotesError(notes: state.notes, message: 'Failed to delete note: $e'),
-      );
+      emit(NotesError(message: 'Failed to add note: $e'));
     }
   }
 
-  void updateNote(NoteModel updated) {
+  Future<void> deleteNote(int id) async {
     try {
-      final updatedNotes = state.notes
-          .map((note) => note.id == updated.id ? updated : note)
-          .toList();
-      emit(NotesLoaded(notes: updatedNotes));
+      await localDatabase.deleteNote(id);
+      final notes = await localDatabase.getNotes();
+      emit(NotesLoaded(notes: notes));
     } catch (e) {
-      emit(
-        NotesError(notes: state.notes, message: 'Failed to update note: $e'),
-      );
+      emit(NotesError(message: 'Failed to delete note: $e'));
     }
   }
 
-  void clearNotes() {
-    emit(const NotesLoaded(notes: []));
+  Future<void> updateNote(NoteModel updated) async {
+    try {
+      await localDatabase.addNote(updated);
+      final notes = await localDatabase.getNotes();
+      emit(NotesLoaded(notes: notes));
+    } catch (e) {
+      emit(NotesError(message: 'Failed to update note: $e'));
+    }
+  }
+
+  Future<void> clearNotes() async {
+    await localDatabase.clearNotes();
+    final notes = await localDatabase.getNotes();
+    emit(NotesLoaded(notes: notes));
   }
 }

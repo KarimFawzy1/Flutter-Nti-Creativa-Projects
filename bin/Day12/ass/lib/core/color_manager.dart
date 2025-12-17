@@ -14,4 +14,14 @@ class ColorManager {
   static const Color whiteText = Color(0xFFFFFFFF);
   static const Color text = Color(0xFF9A9A9A);
   static const Color textSecondary = Color(0xFFD0D0D0);
+
+  static const List<Color> noteColors = [
+    secondary1,
+    secondary2,
+    secondary3,
+    secondary4,
+    secondary5,
+    secondary6,
+    secondary7,
+  ];
 }

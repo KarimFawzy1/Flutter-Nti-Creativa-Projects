@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task1/core/color_manager.dart';
-import 'package:task1/core/note_model.dart';
+import 'package:task1/core/models/note_model.dart';
 import 'package:task1/features/cubit/logic.dart';
 import 'package:task1/features/home/widgets/small_button.dart';
 import 'package:task1/features/notes/widgets/toolbar_icon.dart';
@@ -57,29 +57,23 @@ class NoteScreen extends StatelessWidget {
                 );
                 return;
               }
-              // list of possible note colors
-              final noteColors = [
-                ColorManager.secondary1,
-                ColorManager.secondary2,
-                ColorManager.secondary3,
-                ColorManager.secondary4,
-                ColorManager.secondary5,
-                ColorManager.secondary6,
-                ColorManager.secondary7,
-              ];
               // decide id and color based on whether this is a new or existing note
               final isNewNote = note == null;
+              // Hive integer keys must be in the range 0 - 0xFFFFFFFF
+              const maxHiveKey = 0xFFFFFFFF;
               final id = isNewNote
-                  ? DateTime.now().millisecondsSinceEpoch
+                  ? DateTime.now().millisecondsSinceEpoch % (maxHiveKey + 1)
                   : note!.id;
               final color = isNewNote
-                  ? noteColors[Random().nextInt(noteColors.length)]
+                  ? ColorManager.noteColors[Random().nextInt(
+                      ColorManager.noteColors.length,
+                    )]
                   : note!.color;
               final updatedNote = NoteModel(
                 id: id,
                 title: title,
                 content: content,
-                color: color,
+                colorValue: color.toARGB32(),
               );
               if (isNewNote) {
                 noteCubit.addNote(updatedNote);
