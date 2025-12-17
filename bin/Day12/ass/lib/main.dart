@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+      // load notes from local database when the app is opened
       create: (context) => NoteCubit()..loadNotes(),
       child: MaterialApp(
         theme: ThemeData(
