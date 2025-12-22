@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:task1/core/color_manager.dart';
-import 'package:task1/features/home/widgets/products_container.dart';
-import 'package:task1/features/home/widgets/text_container.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:task1/core/custom_bottom_navigation_bar.dart';
+import 'package:task1/features/home/widgets/category_container.dart';
+import 'package:task1/features/home/widgets/home_food_container.dart';
+import '../../core/color_manager.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,191 +11,144 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: ColorManager.primary,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Column(
-              mainAxisSize: MainAxisSize.min,
+      backgroundColor: Colors.white,
+      bottomNavigationBar: CustomBottomNavigationBar(),
+      body: Column(
+        children: [
+          SizedBox(height: 24.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Row(
               children: [
-                Icon(Icons.home_outlined),
-                SizedBox(height: 4),
-                Container(
-                  height: 3,
-                  width: 10,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(1.5),
+                SizedBox(
+                  width: 24.w,
+                  height: 24.h,
+                  child: Image.asset('assets/images/Sun.png'),
+                ),
+                SizedBox(width: 8.w),
+                Text(
+                  'Good Morning',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: ColorManager.text,
                   ),
+                ),
+                Spacer(),
+                SizedBox(
+                  width: 24.w,
+                  height: 24.h,
+                  child: Image.asset('assets/images/Buy.png'),
                 ),
               ],
             ),
-            label: "",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: ""),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category_outlined),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            label: "",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ""),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          children: [
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          SizedBox(height: 20.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Row(
               children: [
                 Text(
-                  "Search",
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 14),
-                Expanded(
-                  child: SizedBox(
-                    width: 234, // set your desired width here
-                    height: 36, // set your desired height here
-                    child: Material(
-                      elevation: 2,
-                      borderRadius: BorderRadius.circular(18),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.only(right: 12.0),
-                            child: Icon(Icons.photo_camera_outlined),
-                          ),
-                          suffixIconColor: ColorManager.primary,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                          ),
-                        ),
-                      ),
-                    ),
+                  "Category",
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w800,
+                    color: ColorManager.text,
                   ),
                 ),
-              ],
-            ),
-            SizedBox(height: 24),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                  children: [
-                    Text(
-                      "Search history",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    InkWell(
-                      splashColor: Colors.red,
-                      radius: 42,
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: ColorManager.background,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.delete_outlined,
-                          size: 24,
-                          color: ColorManager.secondary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
-                Wrap(
-                  children: [
-                    TextContainer(label: "Red Dress"),
-                    TextContainer(label: "Sunglasses"),
-                    TextContainer(label: "Socks"),
-                    TextContainer(label: "Mustard Pants"),
-                    TextContainer(label: "80-s Skirt"),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Recommendations",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16),
-                Wrap(
-                  children: [
-                    TextContainer(label: "Skirt"),
-                    TextContainer(label: "Jeans"),
-                    TextContainer(label: "Accessories"),
-                    TextContainer(label: "Shoes White"),
-                    TextContainer(label: "T-Shirt Black"),
-                  ],
-                ),
-                SizedBox(height: 22),
-                Align(
-                  alignment: Alignment.centerLeft,
+                Spacer(),
+                Padding(
+                  padding: EdgeInsets.only(right: 14.w),
                   child: Text(
-                    "Discover",
-                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.w700),
-                  ),
-                ),
-                SizedBox(height: 16),
-                SizedBox(
-                  height: 202,
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      ProductsContainer(
-                        image: "assets/images/model1.png",
-                        price: "\$125,000",
-                      ),
-                      SizedBox(width: 12),
-                      ProductsContainer(
-                        image: "assets/images/model2.png",
-                        price: "\$32,00",
-                      ),
-                      SizedBox(width: 12),
-                      ProductsContainer(
-                        image: "assets/images/model3.png",
-                        price: "\$21,000",
-                      ),
-                    ],
+                    "See All",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w800,
+                      color: ColorManager.secondary,
+                    ),
                   ),
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 20.h),
+          SizedBox(
+            height: 41.h,
+            child: Padding(
+              padding: EdgeInsets.only(left: 20.w),
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                children: [
+                  CategoryContainer(
+                    categoryName: "Breakfast",
+                    isSelected: true,
+                  ),
+                  CategoryContainer(categoryName: "Lunch", isSelected: false),
+                  CategoryContainer(categoryName: "Dinner", isSelected: false),
+                  CategoryContainer(categoryName: "Snacks", isSelected: false),
+                  CategoryContainer(categoryName: "Drinks", isSelected: false),
+                  CategoryContainer(
+                    categoryName: "Desserts",
+                    isSelected: false,
+                  ),
+                  CategoryContainer(categoryName: "Other", isSelected: false),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 20.h),
+          Expanded(
+            child: GridView.builder(
+              physics: BouncingScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 174.13 / 259.41,
+              ),
+              itemCount: 6,
+              itemBuilder: (context, index) {
+                final images = [
+                  'assets/images/food1.png',
+                  'assets/images/food1.png',
+                  'assets/images/food2.png',
+                  'assets/images/food1.png',
+                  'assets/images/food2.png',
+                  'assets/images/food2.png',
+                ];
+                final titles = [
+                  "Healthy Taco Salad with fresh vegetable",
+                  "Spicy Chicken Wrap",
+                  "Classic Caesar Salad",
+                  "Spicy Chicken Wrap",
+                  "Classic Caesar Salad",
+                  "Grilled Veggie Sandwich",
+                ];
+                final caloriesList = [
+                  "120 kcal",
+                  "350 kcal",
+                  "210 kcal",
+                  "350 kcal",
+                  "210 kcal",
+                  "300 kcal",
+                ];
+                final times = [
+                  "20 Min",
+                  "18 Min",
+                  "15 Min",
+                  "18 Min",
+                  "15 Min",
+                  "25 Min",
+                ];
+                return HomeFoodContainer(
+                  image: images[index],
+                  title: titles[index],
+                  calories: caloriesList[index],
+                  time: times[index],
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

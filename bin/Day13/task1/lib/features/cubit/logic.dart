@@ -1,39 +1,36 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task1/features/cubit/state.dart';
-import 'package:task1/core/local_database.dart';
+import 'package:task1/core/firebase/firebase_db.dart';
+import 'package:task1/core/firebase/models/user_model.dart';
 
-class NameCubit extends Cubit<NameState> {
-  NameCubit() : super(InitialState());
+class UserCubit extends Cubit<UserState> {
+  UserCubit(this.firebaseDb) : super(UserInitial());
 
-  final LocalDatabase localDatabase = LocalDatabase();
+  FirebaseDb firebaseDb;
 
-  Future<void> addName(String name) async {
-    emit(LoadingState());
+  Future<void> signUp(String email, String password, String name) async {
     try {
-      await localDatabase.addData(name);
-      emit(SuccessState(name: name));
+      emit(UsersLoading());
+      await firebaseDb.signUp(email, password, name);
+      final user = UserModel(
+        name: name,
+        email: email,
+        password: password,
+        favRecipes: [],
+      );
+      emit(UsersLoaded(user: user));
     } catch (e) {
-      emit(ErrorState(errorMessage: e.toString()));
+      emit(UsersError(message: 'Failed to sign up: $e'));
     }
   }
 
-  Future<void> deleteName() async {
-    emit(LoadingState());
+  Future<void> signIn(String email, String password) async {
     try {
-      await localDatabase.deleteData();
-      emit(SuccessState(name: ''));
+      emit(UsersLoading());
+      final user = await firebaseDb.signIn(email, password);
+      emit(UsersLoaded(user: user));
     } catch (e) {
-      emit(ErrorState(errorMessage: e.toString()));
-    }
-  }
-
-  Future<void> getName() async {
-    emit(LoadingState());
-    try {
-      final name = await localDatabase.getData();
-      emit(SuccessState(name: name.toString()));
-    } catch (e) {
-      emit(ErrorState(errorMessage: e.toString()));
+      emit(UsersError(message: 'Failed to sign in: $e'));
     }
   }
 }

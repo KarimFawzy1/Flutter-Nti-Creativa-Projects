@@ -1,17 +1,22 @@
-import 'package:hive_flutter/hive_flutter.dart';
+// import 'package:hive_flutter/hive_flutter.dart';
+// import 'package:task1/core/models/note_model.dart';
 
-class LocalDatabase {
-  Box myBox = Hive.box('box1');
+// class LocalDatabase {
+//   Box myBox = Hive.box('notes');
 
-  Future<void> addData(String name) async {
-    await myBox.put("name", name);
-  }
+//   Future<void> addNote(NoteModel note) async {
+//     await myBox.put(note.id, note);
+//   }
 
-  Future<dynamic> getData() async {
-    return await myBox.get("name");
-  }
+//   Future<List<NoteModel>> getNotes() async {
+//     return (myBox.values.toList()).cast<NoteModel>();
+//   }
 
-  Future<void> deleteData() async {
-    await myBox.delete("name");
-  }
-}
+//   Future<void> deleteNote(int id) async {
+//     await myBox.delete(id);
+//   }
+
+//   Future<void> clearNotes() async {
+//     await myBox.clear();
+//   }
+// }
